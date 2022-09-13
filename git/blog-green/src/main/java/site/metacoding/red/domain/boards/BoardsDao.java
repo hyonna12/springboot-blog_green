@@ -8,4 +8,5 @@ public interface BoardsDao {
 	public Boards findById(Integer id);
 	public void update(Boards boards);
 	public void deleteById(Integer id);
+	public void updateByUsersId(Integer usersId);
 }

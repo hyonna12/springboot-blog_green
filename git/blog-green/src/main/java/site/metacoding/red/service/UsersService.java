@@ -31,7 +31,7 @@ public class UsersService {
 		Users usersPS = usersDao.findByUsername(loginDto.getUsername());
 		
 		// if로 usersPs의 password와 디티오 password 비교
-		if(usersPS.getPassword() == loginDto.getPassword()) {
+		if(usersPS.getPassword().equals(loginDto.getPassword())) {
 			return usersPS;
 		}else {
 			return null;
@@ -50,10 +50,10 @@ public class UsersService {
 	}	
 	
 	@Transactional(rollbackFor = RuntimeException.class)	
-	public void 회원탈퇴(Integer id, Boards usersId) {
+	public void 회원탈퇴(Integer id) {
 		usersDao.deleteById(id);
 		
-		boardsDao.update(usersId);
+		boardsDao.updateByUsersId(id);
 	}	// users - delete, boards - update
 	// 로그아웃은 db 연결안하니까 controller로 관리
 	// session invalidate는 서비스가 안함
