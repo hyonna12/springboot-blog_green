@@ -2,9 +2,10 @@ package site.metacoding.red.domain.users;
 
 import java.sql.Timestamp;
 
+
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.NoArgsConstructor;
 import site.metacoding.red.web.dto.request.users.UpdateDto;
 
 @NoArgsConstructor
@@ -22,7 +23,7 @@ public class Users {
 		this.password = password;
 		this.email = email;
 	}
-	
+
 	public void update(UpdateDto updateDto) {
 		this.password = updateDto.getPassword();
 		this.email = updateDto.getEmail();
