@@ -30,15 +30,20 @@ public class UsersService {
 	public Users 로그인(LoginDto loginDto) {	// username, password
 		Users usersPS = usersDao.findByUsername(loginDto.getUsername());
 		
+		// username 값이 없으면 null
+		if(usersPS == null) {
+			return null;
+		}
 		// if로 usersPs의 password와 디티오 password 비교
 		if(usersPS.getPassword().equals(loginDto.getPassword())) {
 			return usersPS;
 		}else {
 			return null;
 		}
+		
 	}
 	
-	public void 회원수정(Integer id, UpdateDto updateDto) {	// id, 디티오(password, email)
+	public Users 회원수정(Integer id, UpdateDto updateDto) {	// id, 디티오(password, email)
 		// 1. 영속화 /아이디로 먼저 select
 		Users usersPS = usersDao.findById(id);
 		
@@ -47,6 +52,8 @@ public class UsersService {
 		
 		// 3. 디비 수행
 		usersDao.update(usersPS);
+		
+		return usersPS;
 	}	
 	
 	@Transactional(rollbackFor = RuntimeException.class)	
@@ -59,13 +66,13 @@ public class UsersService {
 	// session invalidate는 서비스가 안함
 	// 톰켓이 만드는 request, response 객체는 service x, controller가
 	
-	public boolean 아이디중복확인(String username) {
+	public boolean 유저네임중복확인(String username) {
 		Users usersPS = usersDao.findByUsername(username);
 		// 있으면 true, 없으면 false
 		
-		if(usersPS == null) {
+		if(usersPS == null) {	// 아이디가 중복 안됨
 			return false;
-		}else {
+		}else {	// 아이디가 중복됨
 			return true;
 		}
 	}

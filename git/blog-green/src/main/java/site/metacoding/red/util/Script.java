@@ -16,15 +16,15 @@ public class Script {
 		sb.append("<script>");
 		sb.append("location.href='"+url+"';");	// 해당 url로 이동해주는 코드
 		sb.append("</script>");
-		return null;
+		return sb.toString();
 	}
 	
 	public static String href(String url, String msg) {
 		StringBuilder sb = new StringBuilder();
 		sb.append("<script>");
 		sb.append("alert('"+msg+"');");
-		sb.append("location.href='"+url+"';");	
+		sb.append("location.href='"+url+"';");
 		sb.append("</script>");
-		return null;
+		return sb.toString();
 	}
 }
