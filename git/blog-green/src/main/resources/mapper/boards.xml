@@ -14,7 +14,7 @@
 		FROM
 		(
 		select count(*)
-		totalCount, ceil(count(*)/3) totalPage,
+		totalCount, ceil(count(*)/#{row}) totalPage,
 		#{page} currentPage, 0
 		first, 0
 		last
@@ -38,20 +38,21 @@
 	</select>
 
 	<select id="findAll"
-		resultType="site.metacoding.red.web.dto.response.boards.MainDto">
-		SELECT *
-		FROM boards b
-		INNER JOIN
-		users u
-		ON
-		b.usersId = u.id
-		<if test="keyword != null">
-			WHERE title like CONCAT('%',#{keyword},'%')
-		</if>
-		ORDER BY b.id DESC
-		OFFSET #{startNum} ROWS
-		FETCH NEXT 3 ROWS ONLY
-	</select>
+      resultType="site.metacoding.red.web.dto.response.boards.MainDto">
+      SELECT 
+      b.id, b.title, if(u.username is null, '익명', u.username) AS username
+      FROM boards b
+      LEFT OUTER JOIN
+      users u
+      ON
+      b.usersId = u.id
+      <if test="keyword != null">
+         WHERE title like CONCAT('%',#{keyword},'%')
+      </if>
+      ORDER BY b.id DESC
+      OFFSET #{startNum} ROWS
+      FETCH NEXT #{row} ROWS ONLY
+   </select>
 
 	<update id="update">
 		UPDATE boards SET title = #{title}, content =

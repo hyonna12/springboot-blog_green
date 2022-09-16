@@ -2,7 +2,6 @@ package site.metacoding.red.service;
 
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -10,6 +9,7 @@ import site.metacoding.red.domain.boards.Boards;
 import site.metacoding.red.domain.boards.BoardsDao;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.domain.users.UsersDao;
+import site.metacoding.red.util.ConstVar;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
 import site.metacoding.red.web.dto.request.boards.WriteDto;
 import site.metacoding.red.web.dto.response.boards.MainDto;
@@ -25,12 +25,12 @@ public class BoardsService {
 		if (page == null) {
 			page = 0;
 		}
-		int startNum = page * 3;
+		int startNum = page * ConstVar.ROW;
 		System.out.println("==========");
 		System.out.println("keyword : "+keyword);
 		System.out.println("==========");
-		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword);
-		PagingDto pagingDto = boardsDao.paging(page, keyword);
+		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword, ConstVar.ROW);
+		PagingDto pagingDto = boardsDao.paging(page, keyword, ConstVar.ROW);
 		if (boardsList.size() == 0)
 			pagingDto.setNotResult(true);
 		pagingDto.makeBlockInfo(keyword);
