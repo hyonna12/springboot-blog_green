@@ -5,22 +5,22 @@ $("#btnJoin").click(() => {
 	join();
 });
 
-
 // 유저네임 중복 체크
 $("#btnUsernameSameCheck").click(() => {
 	checkUsername();
 });
 
-
+// 로그인
 $("#btnLogin").click(() => {
 	login();
 });
 
-
+// 회원탈퇴
 $("#btnDelete").click(() => {
 	resign();
 });
 
+// 회원정보 수정
 $("#btnUpdate").click(() => {
 	update();
 });
@@ -95,6 +95,7 @@ function login(){
 	let data = {
 		username: $("#username").val(),
 		password: $("#password").val(),
+		remember: $("#remember").prop("checked")
 	};
 
 	$.ajax("/login", {

@@ -21,9 +21,9 @@
 			</button>
 			<div class="collapse navbar-collapse" id="collapsibleNavbar">
 				<ul class="navbar-nav">
-				<c:choose>
-					<%-- principal에 값이 없으면(로그인 되기 전) 로그인, 회원가입이 되도록 --%>
-					<%-- principal에 값이 있으면(로그인이 되면) 글쓰기, 회원정보보기, 로그아웃이 되도록 --%>
+					<c:choose>
+						<%-- principal에 값이 없으면(로그인 되기 전) 로그인, 회원가입이 되도록 --%>
+						<%-- principal에 값이 있으면(로그인이 되면) 글쓰기, 회원정보보기, 로그아웃이 되도록 --%>
 						<c:when test="${empty principal}">
 							<li class="nav-item"><a class="nav-link" href="/loginForm">로그인</a></li>
 							<li class="nav-item"><a class="nav-link" href="/joinForm">회원가입</a></li>
@@ -34,9 +34,6 @@
 							<li class="nav-item"><a class="nav-link" href="/logout">로그아웃</a></li>
 						</c:otherwise>
 					</c:choose>
-
-
-					
 
 
 				</ul>
