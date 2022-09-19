@@ -20,7 +20,7 @@
 	<br />
 	<div class="d-flex justify-content-between">
 		<h3>${boards.title}</h3>
-		<div>좋아요수 : 10 <i id="iconHeart" class="fa-regular fa-heart"></i></div>
+		<div>좋아요수 : <span id="countLove"> 10</span><i id="iconLove" class="fa-regular fa-heart my_pointer"></i></div>
 	</div>
 	<hr />
 
@@ -54,22 +54,36 @@
 	}
 		
 
-	$("#iconHeart").click(()=>{
-		let check = $("#iconHeart").hasClass("fa-regular");
-		console.log(check);
+	$("#iconLove").click(()=>{
+		let isLovedState = $("#iconLove").hasClass("fa-solid");
+		if(isLovedState){
+			deleteLove();
+		} else{
+			insertLove();
+		}
+		renderLove(isLovedState);
+	});
+	
+	function insertLove(){
 		
-		if(check == true){
-			$("#iconHeart").removeClass("fa-regular");
-			$("#iconHeart").addClass("fa-solid");
-			$("#iconHeart").css("color", "red");
+	}
+	
+	function deleteLove(){
+		
+	}
+	
+	function renderLove(isLovedState){
+		if(isLovedState == true){
+			$("#iconLove").removeClass("fa-regular");
+			$("#iconLove").addClass("fa-solid");
+			$("#iconLove").css("color", "red");
 			
 		}else {
-			$("#iconHeart").removeClass("fa-solid");
-			$("#iconHeart").addClass("fa-regular");
-			$("#iconHeart").css("color", "black");
+			$("#iconLove").removeClass("fa-solid");
+			$("#iconLove").addClass("fa-regular");
+			$("#iconLove").css("color", "black");
 		}
-		
-	});
+	}
 </script>
 
 <%@ include file="../layout/footer.jsp"%>

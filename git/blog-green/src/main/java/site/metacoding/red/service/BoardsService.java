@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.boards.Boards;
 import site.metacoding.red.domain.boards.BoardsDao;
+import site.metacoding.red.domain.loves.Loves;
+import site.metacoding.red.domain.loves.LovesDao;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.domain.users.UsersDao;
 import site.metacoding.red.util.ConstVar;
@@ -20,6 +22,11 @@ import site.metacoding.red.web.dto.response.boards.PagingDto;
 public class BoardsService {
 	private final UsersDao usersDao;
 	private final BoardsDao boardsDao;
+	private final LovesDao lovesDao;
+	
+	public void 좋아요(Loves loves) {
+		lovesDao.insert(loves);
+	}
 	
 	public PagingDto 게시글목록보기(Integer page, String keyword) {
 		if (page == null) {

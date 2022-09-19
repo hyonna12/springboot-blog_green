@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.RequiredArgsConstructor;
 import site.metacoding.red.domain.boards.Boards;
+import site.metacoding.red.domain.loves.Loves;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.service.BoardsService;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
@@ -29,6 +30,15 @@ import site.metacoding.red.web.dto.response.boards.PagingDto;
 public class BoardsController {
 	private final HttpSession session;
 	private final BoardsService boardsService;
+	
+	// 어떤 게시글을 누가 좋아하는지 (boardsId, usersId)
+	@PostMapping("/boards/{id}/loves")
+	public @ResponseBody CMRespDto<?> insertLoves(@PathVariable Integer id){
+		Users principal = (Users) session.getAttribute("principal");
+		Loves loves = new Loves(id, principal.getId());
+		boardsService.좋아요(loves);
+		return new CMRespDto<>(1, "좋아요 성공", null);
+	}
 	
 	@PutMapping("/boards/{id}")
 	public @ResponseBody CMRespDto<?> update(@PathVariable Integer id, @RequestBody UpdateDto updateDto) {
