@@ -2,6 +2,7 @@ package site.metacoding.red.service;
 
 import java.util.List;
 
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -11,11 +12,12 @@ import site.metacoding.red.domain.loves.Loves;
 import site.metacoding.red.domain.loves.LovesDao;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.domain.users.UsersDao;
-import site.metacoding.red.util.ConstVar;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
 import site.metacoding.red.web.dto.request.boards.WriteDto;
+import site.metacoding.red.web.dto.response.boards.DetailDto;
 import site.metacoding.red.web.dto.response.boards.MainDto;
 import site.metacoding.red.web.dto.response.boards.PagingDto;
+import site.metacoding.red.web.dto.response.loves.LovesDto;
 
 @RequiredArgsConstructor
 @Service
@@ -23,6 +25,9 @@ public class BoardsService {
 	private final UsersDao usersDao;
 	private final BoardsDao boardsDao;
 	private final LovesDao lovesDao;
+	
+	public void 좋아요취소(Loves loves) {
+	}
 	
 	public void 좋아요(Loves loves) {
 		lovesDao.insert(loves);
@@ -32,12 +37,12 @@ public class BoardsService {
 		if (page == null) {
 			page = 0;
 		}
-		int startNum = page * ConstVar.ROW;
+		int startNum = page * PagingDto.ROW;
 		System.out.println("==========");
 		System.out.println("keyword : "+keyword);
 		System.out.println("==========");
-		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword, ConstVar.ROW);
-		PagingDto pagingDto = boardsDao.paging(page, keyword, ConstVar.ROW);
+		List<MainDto> boardsList = boardsDao.findAll(startNum, keyword, PagingDto.ROW);
+		PagingDto pagingDto = boardsDao.paging(page, keyword, PagingDto.ROW);
 		if (boardsList.size() == 0)
 			pagingDto.setNotResult(true);
 		pagingDto.makeBlockInfo(keyword);
@@ -46,7 +51,19 @@ public class BoardsService {
 		return pagingDto;
 	}
 
-	public Boards 게시글상세보기(Integer id) {
+	   public DetailDto 게시글상세보기(Integer id, Integer principalId) {
+	      System.out.println("게시글 id : "+id);
+	      Boards boardsPS = boardsDao.findById(id);
+	      LovesDto lovesDto = lovesDao.findByBoardsId(id, principalId);   
+	      if(lovesDto == null) {
+	         lovesDto = new LovesDto();
+	         lovesDto.setCount(0);
+	         lovesDto.setLoved(false);
+	      }
+	      return new DetailDto(boardsPS, lovesDto);
+	   }
+	
+	public Boards 게시글수정화면데이터가져오기(Integer id) {
 		return boardsDao.findById(id);
 	}
 	
