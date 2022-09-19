@@ -126,7 +126,7 @@ function resign(){
 	}).done((res) => {	// res로 응답데이터(code.msg 데이터)가 날라옴
 		if (res.code == 1) {	// response code가 1이면 탈퇴
 			alert("회원탈퇴 완료");
-			location.href = "/"	// 탈퇴되면 main 페이지로 이동
+			location.href = "/";	// 탈퇴되면 main 페이지로 이동
 		} else {
 			alert("회원탈퇴 실패");
 		}
