@@ -119,7 +119,7 @@ function resign(){
 
 	let id = $("#id").val();
 
-	$.ajax("/users/" + id, {
+	$.ajax("/s/users/" + id, {
 		type: "DELETE",
 		dataType: "json" // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		// 마지막 값에 , 안적도록 주의!!
@@ -142,7 +142,7 @@ function update(){
 
 	let id = $("#id").val();
 
-	$.ajax("/users/" + id, {
+	$.ajax("/s/users/" + id, {
 		type: "PUT",
 		dataType: "json", // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		data: JSON.stringify(data),	// http body에 들고갈 요청 데이터

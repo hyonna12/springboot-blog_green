@@ -26,8 +26,8 @@ public class BoardsService {
 	private final BoardsDao boardsDao;
 	private final LovesDao lovesDao;
 	
-	public void 좋아요취소(Integer id) {
-		lovesDao.deleteById(id);
+	public void 좋아요취소(Integer lovesId) {
+		lovesDao.deleteById(lovesId);
 	}
 	
 	public Loves 좋아요(Loves loves) {
