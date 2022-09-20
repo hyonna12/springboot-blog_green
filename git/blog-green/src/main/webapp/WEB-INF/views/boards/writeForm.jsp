@@ -14,37 +14,7 @@
 	</form>
 </div>
 
-<script>
-	$("#btnSave").click(()=>{
-		save();
-	});
-	
-	function save(){
-		let data = {
-				title: $("#title").val(),
-				content: $("#content").val(),
-			};
-
-			$.ajax("/boards", {
-				type: "POST",
-				dataType: "json", // 컨트롤러에서 리턴타입 json으로 바꿔줌
-				data: JSON.stringify(data), // http body에 들고갈 요청 데이터
-				headers: { // http header에 들고갈 요청 데이터
-					"Content-Type": "application/json"
-				}
-			}).done((res) => {	// 응답을 res로
-				if (res.code == 1) {
-					location.href = "/";
-				}
-			});	
-	}
-	
-</script>
-<script>
-      $("#content").summernote({
-        height: 400
-      });
-</script>
+<script src="/js/boards.js"></script>
 
 <%@ include file="../layout/footer.jsp"%>
 
