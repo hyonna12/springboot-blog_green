@@ -41,7 +41,7 @@ function deleteById() {
 	}).done((res) => {
 		if (res.code == 1) {
 			//location.href = document.referrer;
-			location.href = "/?page=" + page + "&keyword=" + keyword;  //  /?page=?&keyword=?
+			location.href = "/s/?page=" + page + "&keyword=" + keyword;  //  /?page=?&keyword=?
 		} else {
 			alert("글삭제 실패");
 		}
