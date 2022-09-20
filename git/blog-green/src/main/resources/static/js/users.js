@@ -44,7 +44,7 @@ function join(){
 		email: $("#email").val()
 	};
 
-	$.ajax("/join", {
+	$.ajax("/api/join", {
 		type: "POST",
 		dataType: "json", // 컨트롤러에서 리턴타입 json으로 바꿔줌
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터
@@ -68,7 +68,7 @@ function checkUsername(){
 
 
 	// 2. Ajax 통신
-	$.ajax(`/users/usernameSameCheck?username=${username}`, {
+	$.ajax(`/api/users/usernameSameCheck?username=${username}`, {
 		type: "GET",
 		dataType: "json",
 		async: true
@@ -98,7 +98,7 @@ function login(){
 		remember: $("#remember").prop("checked")
 	};
 
-	$.ajax("/login", {
+	$.ajax("/api/login", {
 		type: "POST",
 		dataType: "json", // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		data: JSON.stringify(data),	// http body에 들고갈 요청 데이터
@@ -119,7 +119,7 @@ function resign(){
 
 	let id = $("#id").val();
 
-	$.ajax("/s/users/" + id, {
+	$.ajax("/s/api/users/" + id, {
 		type: "DELETE",
 		dataType: "json" // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		// 마지막 값에 , 안적도록 주의!!
@@ -142,7 +142,7 @@ function update(){
 
 	let id = $("#id").val();
 
-	$.ajax("/s/users/" + id, {
+	$.ajax("/s/api/users/" + id, {
 		type: "PUT",
 		dataType: "json", // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		data: JSON.stringify(data),	// http body에 들고갈 요청 데이터

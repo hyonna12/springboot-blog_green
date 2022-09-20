@@ -9,15 +9,14 @@
 	<input id="id" type="hidden" value="${detailDto.id}" />
 	<input id="lovesId" type="hidden" value="${detailDto.lovesId}" />
    
-   <div class="d-flex">
-
-      <a href="/s/boards/${detailDto.id}/updateForm" class="btn btn-warning">수정하러가기</a>
-
-      <form>
-         <button id="btnDelete" class="btn btn-danger">삭제</button>
-      </form>
-   </div>
-
+   <c:if test="${!empty sessionScope.principal}"> <!-- 세션이 있을 때만 수정, 삭제 버튼 보이도록 -->
+	   <div class="d-flex">
+	      <a href="/s/boards/${detailDto.id}/updateForm" class="btn btn-warning">수정하러가기</a>
+	      <form>
+	         <button id="btnDelete" class="btn btn-danger">삭제</button>
+	      </form>
+	   </div>
+	</c:if>
 
    <br />
    <div class="d-flex justify-content-between">

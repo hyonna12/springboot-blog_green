@@ -23,11 +23,6 @@ $("#btnSave").click(() => {
 	save();
 });
 
-// content 디자인
-$("#content").summernote({
-	    height: 400
-	  });
-	  
 	  
 function deleteById() {
 	let id = $("#id").val();
@@ -35,7 +30,7 @@ function deleteById() {
 	let page = $("#page").val();
 	let keyword = $("#keyword").val();
 
-	$.ajax("/s/boards/" + id, {
+	$.ajax("/s/api/boards/" + id, {
 		type: "DELETE",
 		dataType: "json" // 응답 데이터
 	}).done((res) => {
@@ -53,7 +48,7 @@ function deleteById() {
 function insertLove() {
 	let id = $("#id").val();
 
-	$.ajax("/s/boards/" + id + "/loves", {
+	$.ajax("/s/api/boards/" + id + "/loves", {
 		type: "POST",
 		dataType: "json"
 	}).done((res) => {
@@ -64,7 +59,7 @@ function insertLove() {
 			$("#countLove").text(Number(count) + 1);
 			$("#lovesId").val(res.data.id);
 		} else {
-			alert("좋아요 실패했습니다");
+			alert(res.msg);
 		}
 	});
 }
@@ -75,7 +70,7 @@ function deleteLove() {
 	let id = $("#id").val();
 	let lovesId = $("#lovesId").val();
 
-	$.ajax("/s/boards/" + id + "/loves/" + lovesId, {
+	$.ajax("/s/api/boards/" + id + "/loves/" + lovesId, {
 		type: "DELETE",
 		dataType: "json"
 	}).done((res) => {
@@ -110,7 +105,7 @@ function update() {
 
 	let id = $("#id").val();
 
-	$.ajax("/s/boards/" + id, {
+	$.ajax("/s/api/boards/" + id, {
 		type: "PUT",
 		dataType: "json", // 응답데이터 json으로 데이터를 받기를 기대한다는 의미
 		data: JSON.stringify(data),	// http body에 들고갈 요청 데이터
@@ -133,7 +128,7 @@ function save() {
 		content: $("#content").val(),
 	};
 
-	$.ajax("/s/boards", {
+	$.ajax("/s/api/boards", {
 		type: "POST",
 		dataType: "json", // 컨트롤러에서 리턴타입 json으로 바꿔줌
 		data: JSON.stringify(data), // http body에 들고갈 요청 데이터

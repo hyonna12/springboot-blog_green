@@ -16,5 +16,11 @@
 
 <script src="/js/boards.js"></script>
 
+<script>
+$("#content").summernote({
+	    height: 400
+	  });
+</script>
+
 <%@ include file="../layout/footer.jsp"%>
 
