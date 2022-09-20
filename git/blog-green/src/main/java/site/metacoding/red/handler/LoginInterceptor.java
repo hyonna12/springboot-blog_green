@@ -13,7 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.web.dto.response.CMRespDto;
 
-public class LoginIntercepter implements HandlerInterceptor{
+public class LoginInterceptor implements HandlerInterceptor{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
