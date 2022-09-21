@@ -2,7 +2,6 @@ package site.metacoding.red.service;
 
 import java.util.List;
 
-
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -12,12 +11,12 @@ import site.metacoding.red.domain.loves.Loves;
 import site.metacoding.red.domain.loves.LovesDao;
 import site.metacoding.red.domain.users.Users;
 import site.metacoding.red.domain.users.UsersDao;
+import site.metacoding.red.handler.ex.MyException;
 import site.metacoding.red.web.dto.request.boards.UpdateDto;
 import site.metacoding.red.web.dto.request.boards.WriteDto;
 import site.metacoding.red.web.dto.response.boards.DetailDto;
 import site.metacoding.red.web.dto.response.boards.MainDto;
 import site.metacoding.red.web.dto.response.boards.PagingDto;
-import site.metacoding.red.web.dto.response.loves.LovesDto;
 
 @RequiredArgsConstructor
 @Service
@@ -58,6 +57,13 @@ public class BoardsService {
 	   }
 	
 	public Boards 게시글수정화면데이터가져오기(Integer id) {
+		
+		Boards boards = boardsDao.findById(id);
+		
+		if(boards == null) {
+			throw new MyException(id+"의 게시글을 찾을 수 없습니다.");
+		}
+		
 		return boardsDao.findById(id);
 	}
 	
@@ -66,7 +72,8 @@ public class BoardsService {
 		Boards boardsPS = boardsDao.findById(id);
 
 		if(boardsPS == null) {
-			// 이 부분은 나중에 처리!! (exception 처리하는 법 따로 배울 예정)
+			throw new RuntimeException(id+"의 게시글을 찾을 수 없습니다.");	// 복기한다
+			// ds가 try-catch들고있는데 코드가 쭉 돌다가 throw하면 ds의 catch부분으로 바로 감
 		}
 
 		// 2. 변경
