@@ -72,7 +72,7 @@ public class BoardsService {
 		Boards boardsPS = boardsDao.findById(id);
 
 		if(boardsPS == null) {
-			throw new RuntimeException(id+"의 게시글을 찾을 수 없습니다.");	// 복기한다
+			throw new RuntimeException(id+"의 게시글을 찾을 수 없습니다.");	// 복귀
 			// ds가 try-catch들고있는데 코드가 쭉 돌다가 throw하면 ds의 catch부분으로 바로 감
 		}
 

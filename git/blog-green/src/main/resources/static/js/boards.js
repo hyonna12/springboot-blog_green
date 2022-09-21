@@ -24,6 +24,11 @@ $("#btnSave").click(() => {
 });
 
 	  
+	  
+	  
+	  
+	  
+	  
 function deleteById() {
 	let id = $("#id").val();
 

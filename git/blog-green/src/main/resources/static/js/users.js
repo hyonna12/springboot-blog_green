@@ -31,12 +31,37 @@ $("#btnUpdate").click(() => {
 
 
 
-function join(){
+function join() {
 	if (isUsernameSameCheck == false) {
 		alert("아이디 중복 체크를 진행해주세요");
 		return;
 	}
 
+	if (koreanCheck() == true) {
+		alert("한글이 있으면 안됩니다.");
+		return;
+	}
+
+	if (upperCheck() == false) {
+		alert("유저네임에 대문자가 최소 하나 이상 포함되어야합니다.")
+		return;
+	}
+
+	if (passwordSameCheck() == true) {
+		alert("비밀번호가 일치하지 않습니다.")
+		return;
+	}
+
+	if(emailCheck() == false){
+		alert("이메일 형식이 맞지 않습니다.")
+		return;
+	}
+
+	if(blankCheck() == true){
+		alert("공백이 있으면 안됩니다.")
+		return;
+	}
+	
 	// 0. 통신 오브젝트 생성
 	let data = {
 		username: $("#username").val(),
@@ -55,11 +80,14 @@ function join(){
 		if (res.code == 1) {
 			//console.log(res);
 			location.href = "/loginForm";
+		} else{
+			alert(res.msg);
+			history.back();
 		}
-	});	
+	});
 }
 
-function checkUsername(){
+function checkUsername() {
 	// 0. 통신 오브젝트 생성 (Get 요청은 body가 없다.)
 	// json은 body데이터를 받으려고 만드는데 body가 없음
 
@@ -90,7 +118,7 @@ function checkUsername(){
 	});
 }
 
-function login(){
+function login() {
 	// 0. 통신 오브젝트 생성
 	let data = {
 		username: $("#username").val(),
@@ -114,7 +142,7 @@ function login(){
 	});
 }
 
-function resign(){
+function resign() {
 	// request 요청할때 body 없음
 
 	let id = $("#id").val();
@@ -134,7 +162,7 @@ function resign(){
 }
 
 
-function update(){
+function update() {
 	let data = {
 		password: $("#password").val(),
 		email: $("#email").val()
@@ -158,3 +186,69 @@ function update(){
 		}
 	});
 }
+
+
+function koreanCheck() {
+	let username = $("#username").val();
+	let password = $("#password").val();
+	let passwordSame = $("#passwordSame").val();
+	let email = $("#email").val();
+	let korRule = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+	if (korRule.test(username, password, passwordSame, email)) {	// 한글인지 체크
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function upperCheck() {
+	let username = $("#username").val();
+	let letters = /[A-Z]/;
+	if (letters.test(username)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function passwordSameCheck() {
+	let password = $("#password").val();
+	let passwordSame = $("#passwordSame").val();
+	if (password != passwordSame) {
+		password.value = "";
+		passwordSame.value = "";
+		return true;
+	} else{
+		return false;
+	}
+}
+
+
+function emailCheck() {
+	let email = $("#email").val();
+	let form = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
+	
+	if (form.test(email)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+
+function blankCheck() {
+	let username = $("#username").val();
+	let password = $("#password").val();
+	let passwordSame = $("#passwordSame").val();
+	let email = $("#email").val();
+	
+	let letters = /[\s]/g; 
+	if (letters.test(username, password, passwordSame, email)) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
